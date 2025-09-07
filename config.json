@@ -6,23 +6,6 @@
   "GMEEK_VERSION": "last",
   "singlePage": ["about"],
   "i18n": "CN",
-  "socialLinks": [
-    {
-      "name": "GitHub",
-      "icon": "github",
-      "url": "https://github.com/yourusername"
-    },
-    {
-      "name": "bilibili",
-      "icon": "bilibili",
-      "url": "https://space.bilibili.com/1930393686"
-    },
-    {
-      "name": "Email",
-      "icon": "email",
-      "url": "neweryuop2@qq.com"
-    }
-  ],
   "bottomText": "Listen(倾听) Obligate(感恩) Valued(尊重) Excuse(宽恕)",
   "allHead": "<style>body[data-ui-pending] #content {opacity:0;transition:opacity 0.3s ease;}</style><script>document.documentElement.setAttribute('data-ui-pending','true');</script><link rel='stylesheet' href='https://neweryuop-sd.github.io/nick.github.io/GmeekBaseTheme.css'><script src='https://neweryuop-sd.github.io/nick.github.io/GmeekCustomizeCss.js' defer></script><script defer src='https://neweryuop-sd.github.io/nick.github.io/GmeekVercount.js'></script><script src='https://neweryuop-sd.github.io/nick.github.io/GmeekTOC.js'></script><script src='https://blog.meekdai.com/Gmeek/plugins/lightbox.js'></script><script src='https://neweryuop-sd.github.io/nick.github.io/GmeekTocBot.js'></script><script src='https://neweryuop-sd.github.io/nick.github.io/GmeekBSZ.js'></script>"
 }
