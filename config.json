@@ -5,9 +5,9 @@
   "avatarUrl": "https://neweryuop-sd.github.io/nick.github.io/avatar.png",
   "GMEEK_VERSION": "last",
   "singlePage": ["about","link","bilibli"],
-  "iconList":{"bilibli":"M5.45 5.154A4.25 4.25 0 0 0 9.25 7.5h1.378a2.251 2.251 0 1 1 0 1.5H9.25A5.734 5.734 0 0 1 5 7.123v3.505a2.25 2.25 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.95-.218ZM4.25 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm8.5-4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM5 3.25a.75.75 0 1 0 0 .005V3.25Z"},
+  "iconList":{"bilibli":"https://neweryuop-sd.github.io/nick.github.io/bilibili.svg"},
   "exlink":{"bilibili":"https://space.bilibili.com/1930393686?spm_id_from=333.1007.0.0"},
   "i18n": "CN",
-  "bottomText": "Listen(倾听) Obligate(感恩) Valued(尊重) Excuse(宽恕)",
+  "bottomText": "Listen(倾听) Obligate(感恩) Valued(尊重) Excuse(宽恕) ——— love u LHX",
   "allHead": "<style>body[data-ui-pending] #content {opacity:0;transition:opacity 0.3s ease;}</style><script>document.documentElement.setAttribute('data-ui-pending','true');</script><link rel='stylesheet' href='https://neweryuop-sd.github.io/nick.github.io/GmeekBaseTheme.css'><script src='https://neweryuop-sd.github.io/nick.github.io/GmeekCustomizeCss.js' defer></script><script defer src='https://neweryuop-sd.github.io/nick.github.io/GmeekVercount.js'></script><script src='https://neweryuop-sd.github.io/nick.github.io/GmeekTOC.js'></script><script src='https://blog.meekdai.com/Gmeek/plugins/lightbox.js'></script><script src='https://neweryuop-sd.github.io/nick.github.io/GmeekTocBot.js'></script><script src='https://neweryuop-sd.github.io/nick.github.io/GmeekBSZ.js'></script>"
 }
