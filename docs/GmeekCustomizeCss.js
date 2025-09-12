@@ -107,7 +107,7 @@
 
       const tags = labels.filter(el => el.textContent.trim() !== time).map(el => {
         const tag = el.textContent.trim();
-        const bg = el.style.backgroundColor || "#999";
+        const bg = el.style.backgroundColor || "#e7c08dff";
         const fg = getTextColor(bg);
         return `<span class="post-tag" style="background-color:${bg};color:${fg}">${tag}</span>`;
       }).join("");
