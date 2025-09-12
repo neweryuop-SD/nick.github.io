@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    <style>body[data-ui-pending] #content {opacity:0;transition:opacity 0.3s ease;}</style><script>document.documentElement.setAttribute('data-ui-pending','true');</script><link rel='stylesheet' href='https://neweryuop-sd.github.io/nick.github.io/GmeekBaseTheme.css'><script src='https://neweryuop-sd.github.io/nick.github.io/GmeekCustomizeCss.js' defer></script><script defer src='https://neweryuop-sd.github.io/nick.github.io/GmeekVercount.js'></script><script src='https://neweryuop-sd.github.io/nick.github.io/GmeekTOC.js'></script><script src='https://blog.meekdai.com/Gmeek/plugins/lightbox.js'></script><script src='https://neweryuop-sd.github.io/nick.github.io/GmeekBSZ.js'></script>
+    <link rel="icon" href="https://neweryuop-sd.github.io/nick.github.io/avatar.webp"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="### **1.RGB**
+
+RGB就是红（Red）、绿（Green）、蓝（Blue）三种颜色的缩写，而**RGB的色彩便是通过三种颜色的叠加而形成的**。">
+<meta property="og:title" content="RGB和CMYK">
+<meta property="og:description" content="### **1.RGB**
+
+RGB就是红（Red）、绿（Green）、蓝（Blue）三种颜色的缩写，而**RGB的色彩便是通过三种颜色的叠加而形成的**。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://neweryuop-SD.github.io/nick.github.io/post/RGB-he-CMYK.html">
+<meta property="og:image" content="https://neweryuop-sd.github.io/nick.github.io/avatar.webp">
+<title>RGB和CMYK</title>
+
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+
+</style>
+<style>.markdown-alert{padding:0.5rem 1rem;margin-bottom:1rem;border-left:.25em solid var(--borderColor-default,var(--color-border-default));}.markdown-alert .markdown-alert-title {display:flex;font-weight:var(--base-text-weight-medium,500);align-items:center;line-height:1;}.markdown-alert>:first-child {margin-top:0;}.markdown-alert>:last-child {margin-bottom:0;}</style><style>.markdown-alert.markdown-alert-tip {border-left-color:var(--borderColor-success-emphasis, var(--color-success-emphasis));background-color:var(--color-success-subtle);}.markdown-alert.markdown-alert-tip .markdown-alert-title {color: var(--fgColor-success,var(--color-success-fg));}</style>
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">RGB和CMYK</h1>
+<div class="title-right">
+    <a href="https://neweryuop-SD.github.io/nick.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/neweryuop-SD/nick.github.io/issues/9" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h3><strong>1.RGB</strong></h3>
+<p>RGB就是红（Red）、绿（Green）、蓝（Blue）三种颜色的缩写，而<strong>RGB的色彩便是通过三种颜色的叠加而形成的</strong>。我们在大部分显示屏上，例如电脑、电视、手机上看到的都是RGB。</p>
+<p><strong>这和显示屏的发光原理有关系</strong>。显示屏是通过内部的发光元件发出光线，进入人眼，我们才因而感受到色彩。</p>
+<p>这些发光元件，是由分别能发出红、绿、蓝三种颜色的“小灯泡”组合而成。（大家可以试试把眼睛靠近屏幕，应该可以看见红、绿、蓝的细小光点）在8位通道中，每一种颜色都有256（0~255）种强度等级。</p>
+<p><strong>通过三种颜色不同等级的组合，就可以组成千千万万种颜色。</strong></p>
+<p><em>让我们来举个栗子。</em></p>
+<p>打开PS的拾色器，我们可以看到这样的页面:</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/6767a0bdf55a232fe7dd4d68cb2ce7663d4e9405452d74fb0a9ea9f20214fad8/68747470733a2f2f706963332e7a68696d672e636f6d2f76322d38623462373230643266363163353165636462366435303331386466656362345f31343430772e6a7067"><img src="https://camo.githubusercontent.com/6767a0bdf55a232fe7dd4d68cb2ce7663d4e9405452d74fb0a9ea9f20214fad8/68747470733a2f2f706963332e7a68696d672e636f6d2f76322d38623462373230643266363163353165636462366435303331386466656362345f31343430772e6a7067" alt="image" data-canonical-src="https://pic3.zhimg.com/v2-8b4b720d2f61c51ecdb6d50318dfecb4_1440w.jpg" style="max-width: 100%;"></a></p>
+<p><strong>注意下用黄色线框标注出来的区域</strong>，上方的矩形代表目前的颜色——黑色，而底下的窗口则显示目前的RGB数值：0，0，0。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f3b5f64c055979a829da4bf7c71e00e956fe209f60e9b3f3dd4961faad9eb56f/68747470733a2f2f706963332e7a68696d672e636f6d2f76322d31646435333731626139646230316664373266346638316232616336386663635f31343430772e6a7067"><img src="https://camo.githubusercontent.com/f3b5f64c055979a829da4bf7c71e00e956fe209f60e9b3f3dd4961faad9eb56f/68747470733a2f2f706963332e7a68696d672e636f6d2f76322d31646435333731626139646230316664373266346638316232616336386663635f31343430772e6a7067" alt="image" data-canonical-src="https://pic3.zhimg.com/v2-1dd5371ba9db01fd72f4f81b2ac68fcc_1440w.jpg" style="max-width: 100%;"></a></p>
+<p>什么意思呢？意思就是说，显示屏有三盏大灯泡——红灯（0），绿灯（0），黄灯（0），它们现在都处于关闭状态，一点光都不发出来，因此颜色为黑。</p>
+<p>**通过控制RGB的数值，我们可以掌控三个灯泡发光的强弱。**下面我们只开红灯泡（R）,通过调整数值，直观地看一看颜色的变化。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/5a5ba97db5a9168d8df75d561092f4fa46c01394176badd92b9021810f30d845/68747470733a2f2f706963332e7a68696d672e636f6d2f76322d31346366383733633132353837396666626534383238353235623538663930305f31343430772e6a7067"><img src="https://camo.githubusercontent.com/5a5ba97db5a9168d8df75d561092f4fa46c01394176badd92b9021810f30d845/68747470733a2f2f706963332e7a68696d672e636f6d2f76322d31346366383733633132353837396666626534383238353235623538663930305f31343430772e6a7067" alt="image" data-canonical-src="https://pic3.zhimg.com/v2-14cf873c125879ffbe4828525b58f900_1440w.jpg" style="max-width: 100%;"></a></p>
+<p>**随着R的数值不断增大，红色的强度等级逐步提高。**当R变成255时，红灯泡的发光等级达到最大。绿灯泡，蓝灯泡也同样可以通过数值的调整，来变动发光的强度等级。</p>
+<p>之前我们只是打开一盏灯泡，假如我们同时打开两盏，或者三盏灯一起开会怎么样呢？</p>
+<p>让我们试一试两两组合，以及三盏灯泡一起打开的情况（打开的灯强度等级调到最大）</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/ea13d336a101a1257fc31627df05d16ad70ade752dc204fcc24dda218e059bf3/68747470733a2f2f706963612e7a68696d672e636f6d2f76322d36383431653536636665666662653033316436646263306438656138393462385f31343430772e6a7067"><img src="https://camo.githubusercontent.com/ea13d336a101a1257fc31627df05d16ad70ade752dc204fcc24dda218e059bf3/68747470733a2f2f706963612e7a68696d672e636f6d2f76322d36383431653536636665666662653033316436646263306438656138393462385f31343430772e6a7067" alt="image" data-canonical-src="https://pica.zhimg.com/v2-6841e56cfeffbe031d6dbc0d8ea894b8_1440w.jpg" style="max-width: 100%;"></a></p>
+<p>为什么会出现这样的现象？</p>
+<p>这里我们需要了解一下<strong>加色原理</strong>。在RGB模式下，色光之间的混合满足下图的规律。当三种原色强度等级达到最大（255），混合在一起时，就会变成白色。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/c7ba8cc51f7535322daf8a21a141841f29875104ba1a2a7e4f54249a4534afe3/68747470733a2f2f706963612e7a68696d672e636f6d2f76322d65393263643830623161643135633964616136373864336262643262363165325f31343430772e6a7067"><img src="https://camo.githubusercontent.com/c7ba8cc51f7535322daf8a21a141841f29875104ba1a2a7e4f54249a4534afe3/68747470733a2f2f706963612e7a68696d672e636f6d2f76322d65393263643830623161643135633964616136373864336262643262363165325f31343430772e6a7067" alt="image" data-canonical-src="https://pica.zhimg.com/v2-e92cd80b1ad15c9daa678d3bbd2b61e2_1440w.jpg" style="max-width: 100%;"></a></p>
+<p>通过加色原理，多样的色彩便可以通过三种色光的叠加表现出来。</p>
+<hr>
+<h3><strong>2.CMYK</strong></h3>
+<p>CMYK代表青（Cyan），品红（Magenta），黄（Yellow）和一个KEY色（通常为黑）的缩写。我们在打印店里看到的打印机，印刷机，喷绘机等设备一般都采用这种色彩模型。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/4b6f9b46abc38aa70e472b064b8d93f22db1dc1a4a5fbe49f65aa3c86c0f9a61/68747470733a2f2f706963322e7a68696d672e636f6d2f76322d38393338353634316363613633373865623339316664343932303134343035335f31343430772e6a7067"><img src="https://camo.githubusercontent.com/4b6f9b46abc38aa70e472b064b8d93f22db1dc1a4a5fbe49f65aa3c86c0f9a61/68747470733a2f2f706963322e7a68696d672e636f6d2f76322d38393338353634316363613633373865623339316664343932303134343035335f31343430772e6a7067" alt="v2-89385641cca6378eb391fd4920144053_1440w.jpg (564×417)" data-canonical-src="https://pic2.zhimg.com/v2-89385641cca6378eb391fd4920144053_1440w.jpg" style="max-width: 100%;"></a></p>
+<p>这些印刷设备要怎样调配出色彩呢？<strong>在打印机中有着CMYK四种油墨,通过油墨之间的混合，设备可以组合出多种多样的色彩。</strong></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/8ece16ef0608d2561d34b0ecf46134930a7720c7b295296aa9004d7ccaaf2e4e/68747470733a2f2f706963322e7a68696d672e636f6d2f76322d31383063386634633261396362333161393238646439383233306439633539625f31343430772e6a7067"><img src="https://camo.githubusercontent.com/8ece16ef0608d2561d34b0ecf46134930a7720c7b295296aa9004d7ccaaf2e4e/68747470733a2f2f706963322e7a68696d672e636f6d2f76322d31383063386634633261396362333161393238646439383233306439633539625f31343430772e6a7067" alt="v2-180c8f4c2a9cb31a928dd98230d9c59b_1440w.jpg (758×670)" data-canonical-src="https://pic2.zhimg.com/v2-180c8f4c2a9cb31a928dd98230d9c59b_1440w.jpg" style="max-width: 100%;"></a></p>
+<p>但与RGB模型不同的是，<strong>在CMYK中，颜色的混合满足减色原理</strong>，颜色混合的越多，得到的混合色往往越浑浊，越来越接近黑色（画过水彩的调配颜料时应该有类似体会）</p>
+<div class="markdown-alert markdown-alert-tip"><p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p><p>减色原理是指颜料或其他带色物质通过选择性吸收白光中的某些色光，导致人眼所见颜色的现象</p>
+</div>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/3343d0e22fb482b02fd743419817312587c4cfbe5db5a4abedd7fa01af86f671/68747470733a2f2f706963612e7a68696d672e636f6d2f76322d31373066636535373362333164363330653637303133663034626633356662305f31343430772e6a7067"><img src="https://camo.githubusercontent.com/3343d0e22fb482b02fd743419817312587c4cfbe5db5a4abedd7fa01af86f671/68747470733a2f2f706963612e7a68696d672e636f6d2f76322d31373066636535373362333164363330653637303133663034626633356662305f31343430772e6a7067" alt="v2-170fce573b31d630e67013f04bf35fb0_1440w.jpg (1080×926)" data-canonical-src="https://pica.zhimg.com/v2-170fce573b31d630e67013f04bf35fb0_1440w.jpg" style="max-width: 100%;"></a></p>
+<p><strong>为什么RGB和CMYK会对应加色、减色两种不同的原理呢？这其实和我们感知颜色的过程有关。</strong></p>
+<p>在<a href="">认识色彩</a>有提到过，我们能看到颜色，是因为有光的存在。手机、电脑、电视（RGB）等都是<strong>通过显示屏发光，让有色光线直接射入我们的眼里，我们因此感受到了颜色。</strong></p>
+<p>但对于打印机（CMYK）来说，色彩是通过颜料的混合形成的。<strong>颜料本身并不发光，它通过反射光线让我们感受到颜色。</strong></p>
+<p>以青颜料为例，一束白光照下（可以看作是多种色光的混合），青颜料吸收了大部分色光，而剩下没有吸收的部分（青色的光线）会反射回我们的眼睛，我们因此感受到了颜色。</p>
+<p>其他的颜料也是同理，可以想象，<strong>混合的颜料越多，吸收的色光也就越多，颜色就会显得越发黯淡，最后趋近于灰黑色。</strong></p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/f07ef1b5487cbc0f9e0fbfc3794fe504cfe25b4dafcc915a085e588a9d3f0a93/68747470733a2f2f706963312e7a68696d672e636f6d2f76322d61356235393338336135653266666665663139353062636334383837643230385f31343430772e6a7067"><img src="https://camo.githubusercontent.com/f07ef1b5487cbc0f9e0fbfc3794fe504cfe25b4dafcc915a085e588a9d3f0a93/68747470733a2f2f706963312e7a68696d672e636f6d2f76322d61356235393338336135653266666665663139353062636334383837643230385f31343430772e6a7067" alt="v2-a5b59383a5e2fffef1950bcc4887d208_1440w.jpg (1080×610)" data-canonical-src="https://pic1.zhimg.com/v2-a5b59383a5e2fffef1950bcc4887d208_1440w.jpg" style="max-width: 100%;"></a></p>
+<p>颜料调配的三原色（CMY）通过混合可以得出大多数颜色，不过由于制造工艺限制，虽然理论上三种色彩混合可以得到黑色，但现实中，我们还需要<strong>额外的黑色油墨（K）进行叠加</strong>，才能达到理想的效果。</p>
+<h3><strong>3.补充</strong></h3>
+<p>不知道大家有没有这样的体验，<strong>一张图片在电脑上看非常鲜艳诱人，但打印出来后颜色却有些黯淡，达不到原先的效果。</strong></p>
+<p>你也许会觉得这是打印机的质量问题，但对于某些颜色，CMYK模式的打印机不管质量多好都无法调和出来。</p>
+<p>为什么呢？让我们来看下面这张色域图。</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/38c904f0238da2db13e5e2b304b8f8b5cfe7863214a9eb6d681c312fa6e87e4d/68747470733a2f2f706963782e7a68696d672e636f6d2f76322d35396137373733633531646334306135353130653036633935323632616466645f31343430772e6a7067"><img src="https://camo.githubusercontent.com/38c904f0238da2db13e5e2b304b8f8b5cfe7863214a9eb6d681c312fa6e87e4d/68747470733a2f2f706963782e7a68696d672e636f6d2f76322d35396137373733633531646334306135353130653036633935323632616466645f31343430772e6a7067" alt="v2-59a7773c51dc40a5510e06c95262adfd_1440w.jpg (843×872)" data-canonical-src="https://picx.zhimg.com/v2-59a7773c51dc40a5510e06c95262adfd_1440w.jpg" style="max-width: 100%;"></a></p>
+<p>这张图表示了各个色彩模式下，所能囊括的颜色范围。图中有颜色的一部分，代表着人眼能感受到的一切色彩。</p>
+<p><strong>在这范围内有一个虚线三角形，它的内部是RGB模式下所能显示的所有颜色。另外一个圈内是CMYK模式下能够囊括的所有颜色。</strong></p>
+<p>仔细观察，你可以发现，RGB和CMYK容纳的色彩范围并不完全重合。这就会导致一个尴尬的结局：<strong>RGB模式中的一些颜色在CMYK模式下无法显示。</strong></p>
+<p>遇到这种情况，打印机也没办法，只能在CMYK里选择一个接近的颜色凑活着用，于是打印出来的颜色会出现色差，与我们在屏幕上看到的不一样。</p>
+<p>也就是说，显示屏上颜色丰富鲜艳的图片，打印出来很有可能会变得黯淡失色，下面这两盘肉比较形象，大家感受一下......</p>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/0335f26c1fa515ffff2d25ef8d190a2fcacd0aa1020ec1ad2ca8dac617975019/68747470733a2f2f706963312e7a68696d672e636f6d2f76322d39353536393030333237663736313463663033313762373937666665313430385f31343430772e6a7067"><img src="https://camo.githubusercontent.com/0335f26c1fa515ffff2d25ef8d190a2fcacd0aa1020ec1ad2ca8dac617975019/68747470733a2f2f706963312e7a68696d672e636f6d2f76322d39353536393030333237663736313463663033313762373937666665313430385f31343430772e6a7067" alt="v2-9556900327f7614cf0317b797ffe1408_1440w.jpg (690×690)" data-canonical-src="https://pic1.zhimg.com/v2-9556900327f7614cf0317b797ffe1408_1440w.jpg" style="max-width: 100%;"></a></p>
+<blockquote>
+<p>[!PS]<br>
+（1）Photoshop里有将RGB和CMYK模式互相转换的功能。</p>
+<p>（2）高级印刷:<br>
+如果你对打印艳丽的色彩有很强的需求，可以选择一些更高级的印刷方式如专色印刷（非CMYK）。不过相较于常规的四色印刷，它们的成本往往会更加高昂。</p>
+</blockquote></div>
+<div style="font-size:small;margin-top:8px;float:right;">Listen(倾听) Obligate(感恩) Valued(尊重) Excuse(宽恕) ——— Love LHX</div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://neweryuop-SD.github.io/nick.github.io">千羽-blog</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","neweryuop-SD/nick.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+
+
+</script>
+
+
+</html>
