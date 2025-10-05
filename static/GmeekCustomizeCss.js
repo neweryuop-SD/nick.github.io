@@ -3,40 +3,29 @@
   window.__TiengmingModernized = true;
   console.log("🍏 TiengmingModern 插件已启用 https://code.buxiantang.top/");
 
-  // 获取配置
-  const getConfig = () => {
-    // 尝试从全局配置获取
-    if (window.GMEEK_CONFIG && window.GMEEK_CONFIG.useVideoBackground !== undefined) {
-      return window.GMEEK_CONFIG.useVideoBackground;
-    }
-    
-    // 默认启用视频背景
-    return true;
-  };
-
   // 定义主题颜色配置
   const themeColors = {
     light: {
-      // 视频背景
-      bgVideo: "https://neweryuop-sd.github.io/nick.github.io/light-video.mp4",
-      // 静态背景图
+      bgGradient: "linear-gradient(135deg, #f4f4f4, #fef2f2, #f4f0ff)",
+      // 桌面端背景图
       bgImage: "url('https://neweryuop-sd.github.io/nick.github.io/light.webp')",
+      // 移动端背景图 - 竖屏优化
       bgImageMobile: "url('https://neweryuop-sd.github.io/nick.github.io/mobile-light.webp')",
-      bgOverlay: "rgba(255, 255, 255, 0.1)",
-      cardBg: "rgba(255,255,255,0.15)",
+      bgOverlay: "rgba(255, 255, 255, 0)", // 透明覆盖层
+      cardBg: "rgba(255,255,255,0.15)", // 稍微增加透明度
       cardBorder: "1px solid rgba(255,255,255,0.2)",
       title: "#1c1c1e",
       summary: "#444",
       meta: "#888"
     },
     dark: {
-      // 视频背景
-      bgVideo: "https://neweryuop-sd.github.io/nick.github.io/night-video.mp4",
-      // 静态背景图
+      bgGradient: "linear-gradient(135deg, #1a1a2b, #222c3a, #2e3950)",
+      // 桌面端背景图
       bgImage: "url('https://neweryuop-sd.github.io/nick.github.io/night.webp')",
+      // 移动端背景图 - 竖屏优化
       bgImageMobile: "url('https://neweryuop-sd.github.io/nick.github.io/mobile-night.webp')",
-      bgOverlay: "rgba(0, 0, 0, 0.2)",
-      cardBg: "rgba(32,32,32,0.15)",
+      bgOverlay: "rgba(0, 0, 0, 0)", // 透明覆盖层
+      cardBg: "rgba(32,32,32,0.15)", // 稍微增加透明度
       cardBorder: "1px solid rgba(255,255,255,0.08)",
       title: "#eee",
       summary: "#aaa",
@@ -65,188 +54,38 @@
     return window.innerWidth <= 768;
   }
 
-  // 检测是否启用视频背景
-  function shouldUseVideoBackground() {
-    const useVideo = getConfig();
-    const isMobile = isMobileDevice();
-    
-    // 如果配置启用视频背景且不是移动设备，则使用视频背景
-    return useVideo && !isMobile;
-  }
-
-  // 预加载资源函数
-  function preloadResource(url, type = 'image') {
+  // 预加载图片函数 - 优化背景图片加载
+  function preloadImage(url) {
     return new Promise((resolve, reject) => {
-      if (type === 'video') {
-        const video = document.createElement('video');
-        video.preload = 'auto';
-        video.onloadeddata = resolve;
-        video.onerror = reject;
-        video.src = url;
-      } else {
-        const img = new Image();
-        img.onload = resolve;
-        img.onerror = reject;
-        img.src = url;
-      }
+      const img = new Image();
+      img.onload = resolve;
+      img.onerror = reject;
+      img.src = url;
     });
   }
 
-  // 预加载所有背景资源
-  async function preloadBackgroundResources() {
-    const useVideo = shouldUseVideoBackground();
-    const resources = [];
-    
-    if (useVideo) {
-      // 预加载视频
-      resources.push(
-        preloadResource(themeColors.light.bgVideo, 'video'),
-        preloadResource(themeColors.dark.bgVideo, 'video')
-      );
-    } else {
-      // 预加载图片
-      resources.push(
-        preloadResource(themeColors.light.bgImage.replace("url('", "").replace("')", "")),
-        preloadResource(themeColors.light.bgImageMobile.replace("url('", "").replace("')", "")),
-        preloadResource(themeColors.dark.bgImage.replace("url('", "").replace("')", "")),
-        preloadResource(themeColors.dark.bgImageMobile.replace("url('", "").replace("')", ""))
-      );
-    }
+  // 预加载所有背景图片
+  async function preloadBackgroundImages() {
+    const images = [
+      themeColors.light.bgImage.replace("url('", "").replace("')", ""),
+      themeColors.light.bgImageMobile.replace("url('", "").replace("')", ""),
+      themeColors.dark.bgImage.replace("url('", "").replace("')", ""),
+      themeColors.dark.bgImageMobile.replace("url('", "").replace("')", "")
+    ];
     
     try {
-      await Promise.all(resources);
-      console.log("所有背景资源预加载完成");
+      await Promise.all(images.map(url => preloadImage(url)));
+      console.log("所有背景图片预加载完成");
     } catch (error) {
-      console.warn("部分背景资源预加载失败:", error);
+      console.warn("部分背景图片预加载失败:", error);
     }
   }
 
   // 创建动态背景元素
-  const createBackground = () => {
-    const useVideo = shouldUseVideoBackground();
-    
-    if (useVideo) {
-      // 创建视频背景
-      return createVideoBackground();
-    } else {
-      // 创建图片背景
-      return createImageBackground();
-    }
-  };
-
-  // 创建视频背景
-  const createVideoBackground = () => {
-    const container = document.createElement("div");
-    container.className = "video-bg-container";
-    
-    // 创建视频元素
-    const video = document.createElement("video");
-    video.className = "video-bg";
-    video.autoplay = true;
-    video.loop = true;
-    video.muted = true;
-    video.playsInline = true;
-    
-    // 创建加载指示器
-    const loader = document.createElement("div");
-    loader.className = "bg-loader";
-    loader.innerHTML = `
-      <div class="loader-spinner"></div>
-      <div class="loader-text">加载视频背景中...</div>
-    `;
-    
-    // 创建覆盖层
-    const overlay = document.createElement("div");
-    overlay.className = "bg-overlay";
-    
-    container.appendChild(video);
-    container.appendChild(loader);
-    container.appendChild(overlay);
-    document.body.insertBefore(container, document.body.firstChild);
-    
-    const style = document.createElement("style");
-    style.textContent = `
-      .video-bg-container {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100vw; height: 100vh;
-        z-index: -1;
-        overflow: hidden;
-      }
-      
-      .video-bg {
-        position: absolute;
-        top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
-        min-width: 100%; 
-        min-height: 100%;
-        width: auto;
-        height: auto;
-        object-fit: cover;
-        transition: opacity 0.8s ease;
-      }
-      
-      .bg-overlay {
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        transition: background 0.6s ease;
-      }
-      
-      .bg-loader {
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background: rgba(0,0,0,0.5);
-        color: white;
-        z-index: 2;
-      }
-      
-      .loader-spinner {
-        width: 40px;
-        height: 40px;
-        border: 4px solid rgba(255,255,255,0.3);
-        border-top: 4px solid white;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin-bottom: 10px;
-      }
-      
-      .loader-text {
-        font-size: 14px;
-      }
-      
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-
-      /* 移动端禁用视频背景 */
-      @media (max-width: 768px) {
-        .video-bg-container {
-          display: none !important;
-        }
-      }
-    `;
-    document.head.appendChild(style);
-    
-    return {
-      container,
-      video,
-      loader,
-      overlay,
-      type: 'video'
-    };
-  };
-
-  // 创建图片背景
-  const createImageBackground = () => {
+  const bg = (() => {
     const el = document.createElement("div");
-    el.className = "image-bg-container";
+    el.className = "herobgcolor";
+    document.body.insertBefore(el, document.body.firstChild);
     
     // 创建加载指示器
     const loader = document.createElement("div");
@@ -262,11 +101,9 @@
     overlay.className = "bg-overlay";
     el.appendChild(overlay);
     
-    document.body.insertBefore(el, document.body.firstChild);
-    
     const style = document.createElement("style");
     style.textContent = `
-      .image-bg-container {
+      .herobgcolor {
         position: fixed;
         top: 0; left: 0;
         width: 100vw; height: 100vh;
@@ -322,75 +159,36 @@
         100% { transform: scale(1); }
       }
       
-      .image-bg-container {
+      .herobgcolor {
         animation: subtleZoom 60s ease-in-out infinite;
       }
 
       /* 移动端背景图片填充方式 */
       @media (max-width: 768px) {
-        .image-bg-container {
+        .herobgcolor {
           background-size: cover !important;
           background-position: center !important;
         }
       }
     `;
     document.head.appendChild(style);
-    
-    return {
-      container: el,
-      loader,
-      overlay,
-      type: 'image'
-    };
-  };
-
-  // 创建背景元素
-  const bg = createBackground();
+    return el;
+  })();
 
   // 应用主题样式的主要函数
   function applyTheme() {
     const mode = getEffectiveMode();
     const theme = themeColors[mode];
-    const useVideo = shouldUseVideoBackground();
+
+    // 根据设备类型选择背景图片
     const isMobile = isMobileDevice();
+    const bgImage = isMobile ? theme.bgImageMobile : theme.bgImage;
 
-    // 显示加载器
-    if (bg.loader) {
-      bg.loader.style.display = 'flex';
-    }
-
-    if (useVideo && bg.type === 'video') {
-      // 设置视频背景
-      bg.video.src = theme.bgVideo;
-      bg.overlay.style.background = theme.bgOverlay;
-      
-      // 监听视频加载完成
-      bg.video.addEventListener('loadeddata', () => {
-        if (bg.loader) {
-          bg.loader.style.display = 'none';
-        }
-      }, { once: true });
-      
-      // 监听视频错误
-      bg.video.addEventListener('error', () => {
-        console.error('视频加载失败:', bg.video.src);
-        if (bg.loader) {
-          bg.loader.querySelector('.loader-text').textContent = '视频加载失败';
-          setTimeout(() => {
-            bg.loader.style.display = 'none';
-          }, 2000);
-        }
-      }, { once: true });
-    } else {
-      // 设置图片背景
-      const bgImage = isMobile ? theme.bgImageMobile : theme.bgImage;
-      bg.container.style.backgroundImage = bgImage;
-      bg.overlay.style.background = theme.bgOverlay;
-      
-      // 图片背景直接隐藏加载器（因为预加载已经完成）
-      if (bg.loader) {
-        bg.loader.style.display = 'none';
-      }
+    // 设置背景
+    bg.style.backgroundImage = bgImage;
+    const overlay = bg.querySelector('.bg-overlay');
+    if (overlay) {
+      overlay.style.background = theme.bgOverlay;
     }
 
     // 为所有文章卡片应用样式
@@ -425,27 +223,8 @@
     attributeFilter: ["data-color-mode"]
   });
 
-  // 监听窗口大小变化，重新应用主题（可能切换移动/桌面模式）
-  window.addEventListener('resize', () => {
-    const currentUseVideo = shouldUseVideoBackground();
-    const bgType = bg.type;
-    
-    // 如果背景类型需要切换
-    if ((currentUseVideo && bgType !== 'video') || (!currentUseVideo && bgType !== 'image')) {
-      // 移除现有背景
-      bg.container.remove();
-      
-      // 创建新背景
-      const newBg = createBackground();
-      Object.assign(bg, newBg);
-      
-      // 重新应用主题
-      applyTheme();
-    } else {
-      // 只是窗口大小变化，重新应用主题
-      applyTheme();
-    }
-  });
+  // 监听窗口大小变化，切换背景图片
+  window.addEventListener('resize', applyTheme);
 
   // 重构卡片：将原始导航项转换为美观的卡片
   function rebuildCards() {
@@ -487,18 +266,38 @@
     applyTheme();
   }
 
+  // 空函数 - 保留原有函数调用但不执行任何操作
+  function initMusicPlayer() {
+    // 音频播放器功能已移除，此函数为空以保持代码结构
+    console.log("音乐播放器功能已禁用");
+  }
+
   // 在DOM加载完成后执行
   if (document.readyState === "loading") {
     window.addEventListener("DOMContentLoaded", async () => {
-      // 预加载背景资源
-      await preloadBackgroundResources();
+      // 预加载背景图片
+      await preloadBackgroundImages();
+      
+      // 隐藏背景加载器
+      const bgLoader = document.querySelector('.bg-loader');
+      if (bgLoader) {
+        bgLoader.style.display = 'none';
+      }
       
       rebuildCards();
+      initMusicPlayer(); // 保留调用但函数为空
     });
   } else {
-    preloadBackgroundResources().then(() => {
-      rebuildCards();
+    preloadBackgroundImages().then(() => {
+      // 隐藏背景加载器
+      const bgLoader = document.querySelector('.bg-loader');
+      if (bgLoader) {
+        bgLoader.style.display = 'none';
+      }
     });
+    
+    rebuildCards();
+    initMusicPlayer(); // 保留调用但函数为空
   }
 
   // 移除UI挂起状态
