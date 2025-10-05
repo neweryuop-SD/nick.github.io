@@ -228,7 +228,15 @@
 
   // 重构卡片：将原始导航项转换为美观的卡片
   function rebuildCards() {
-    document.querySelectorAll(".SideNav-item").forEach((card, i) => {
+    const navItems = document.querySelectorAll(".SideNav-item");
+    
+    // 检查是否有导航项
+    if (navItems.length === 0) {
+      console.warn("未找到导航项，请检查HTML结构");
+      return;
+    }
+    
+    navItems.forEach((card, i) => {
       // 提取卡片信息
       const title = card.querySelector(".listTitle")?.innerText || "未命名文章";
       const link = card.getAttribute("href");
@@ -266,12 +274,6 @@
     applyTheme();
   }
 
-  // 空函数 - 保留原有函数调用但不执行任何操作
-  function initMusicPlayer() {
-    // 音频播放器功能已移除，此函数为空以保持代码结构
-    console.log("音乐播放器功能已禁用");
-  }
-
   // 在DOM加载完成后执行
   if (document.readyState === "loading") {
     window.addEventListener("DOMContentLoaded", async () => {
@@ -285,7 +287,7 @@
       }
       
       rebuildCards();
-      initMusicPlayer(); // 保留调用但函数为空
+      applyTheme(); // 确保主题正确应用
     });
   } else {
     preloadBackgroundImages().then(() => {
@@ -297,7 +299,7 @@
     });
     
     rebuildCards();
-    initMusicPlayer(); // 保留调用但函数为空
+    applyTheme(); // 确保主题正确应用
   }
 
   // 移除UI挂起状态

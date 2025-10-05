@@ -132,11 +132,6 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-/* 音乐播放器样式 - 保留选择器但隐藏元素 */
-.music-player {
-  display: none !important;
-}
-
 /* 深色模式样式 */
 [data-color-mode="dark"] body,
 @media (prefers-color-scheme: dark) {
