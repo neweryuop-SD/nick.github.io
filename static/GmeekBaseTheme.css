@@ -16,9 +16,11 @@ body {
   margin-bottom: 40px;
   padding: 20px;
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.1); /* 更透明的背景 */
-  backdrop-filter: blur(4px); /* 极小的模糊效果 */
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.15);
+  /* 亚克力材质效果 */
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 #header h1 {
@@ -46,18 +48,21 @@ body {
   display: none;
 }
 
-/* 文章卡片样式 */
+/* 文章卡片样式 - 亚克力材质效果 */
 .post-card {
   display: flex;
   flex-direction: column;
   border-radius: 20px;
   padding: 20px 24px;
   margin-bottom: 20px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-  background: rgba(255, 255, 255, 0.1); /* 透明背景 */
-  backdrop-filter: blur(4px); /* 极小的模糊效果 */
-  -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 8px 24px rgba(0,0,0,0.1),
+    0 1px 3px rgba(0,0,0,0.08); /* 增加细微阴影增强层次感 */
+  background: rgba(255, 255, 255, 0.15);
+  /* 亚克力材质效果 - 中等模糊度 */
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   text-decoration: none;
   transition: all 0.3s ease;
   opacity: 0;
@@ -74,8 +79,10 @@ body {
 
 .post-card:hover {
   transform: translateY(-4px) scale(1.015);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
-  background: rgba(255, 255, 255, 0.15); /* 悬停时稍微增加透明度 */
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.15),
+    0 2px 6px rgba(0,0,0,0.1);
+  background: rgba(255, 255, 255, 0.2); /* 悬停时稍微增加透明度 */
 }
 
 .post-meta {
@@ -118,252 +125,11 @@ body {
   padding: 20px;
   margin-top: 40px;
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.1); /* 更透明的背景 */
-  backdrop-filter: blur(4px); /* 极小的模糊效果 */
-  -webkit-backdrop-filter: blur(4px);
-}
-
-/* 音乐播放器样式 */
-.music-player {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  background: rgba(255, 255, 255, 0.15); /* 透明背景 */
-  backdrop-filter: blur(8px) saturate(180%); /* 较小的模糊效果 */
-  -webkit-backdrop-filter: blur(8px) saturate(180%);
-  border-radius: 16px;
-  padding: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.15);
+  /* 亚克力材质效果 */
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  z-index: 1000;
-  width: 300px;
-  font-family: inherit;
-  cursor: move;
-  user-select: none;
-  transition: all 0.3s ease;
-}
-
-.music-player:hover {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.2); /* 悬停时稍微增加透明度 */
-}
-
-.music-player.dragging {
-  opacity: 0.8;
-  transform: scale(0.98);
-}
-
-.music-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.music-title {
-  font-weight: 600;
-  font-size: 16px;
-  color: #333;
-  margin: 0;
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-  color: #666;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-}
-
-.close-btn:hover {
-  background: rgba(0, 0, 0, 0.1);
-  color: #333;
-}
-
-.music-info {
-  margin-bottom: 15px;
-}
-
-.track-title {
-  display: block;
-  font-weight: 600;
-  font-size: 14px;
-  color: #333;
-  margin-bottom: 2px;
-}
-
-.track-artist {
-  display: block;
-  font-size: 12px;
-  color: #666;
-}
-
-.music-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-
-.control-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 50%;
-  transition: all 0.2s ease;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-}
-
-.control-btn:hover {
-  background: rgba(0, 0, 0, 0.1);
-  transform: scale(1.1);
-}
-
-.play-btn {
-  background: rgba(0, 122, 255, 0.1);
-  color: #007AFF;
-}
-
-.play-btn:hover {
-  background: rgba(0, 122, 255, 0.2);
-}
-
-.progress-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.time-display {
-  font-size: 11px;
-  color: #666;
-  min-width: 35px;
-}
-
-.progress-bar {
-  flex: 1;
-  height: 4px;
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.progress {
-  height: 100%;
-  background: #007AFF;
-  border-radius: 2px;
-  width: 0%;
-  transition: width 0.1s ease;
-}
-
-.volume-controls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.volume-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 6px;
-  font-size: 14px;
-  color: #666;
-}
-
-.volume-slider {
-  flex: 1;
-  height: 4px;
-  border-radius: 2px;
-  background: rgba(0, 0, 0, 0.1);
-  outline: none;
-  opacity: 0.7;
-  transition: opacity 0.2s;
-}
-
-.volume-slider:hover {
-  opacity: 1;
-}
-
-.volume-slider::-webkit-slider-thumb {
-  appearance: none;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #007AFF;
-  cursor: pointer;
-}
-
-.playlist {
-  margin-top: 12px;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-}
-
-.playlist.open {
-  max-height: 150px;
-}
-
-.playlist-toggle {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 12px;
-  color: #666;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin: 0 auto;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-}
-
-.playlist-toggle:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.playlist-item {
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 13px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.playlist-item:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.playlist-item.active {
-  background: rgba(0, 122, 255, 0.1);
-  color: #007AFF;
-}
-
-.playlist-item .track-duration {
-  font-size: 11px;
-  color: #999;
 }
 
 /* 深色模式样式 */
@@ -374,7 +140,8 @@ body {
   }
   
   #header {
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
   
   #header h1 {
@@ -388,12 +155,12 @@ body {
   }
   
   .post-card {
-    background: rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
   
   .post-card:hover {
-    background: rgba(0, 0, 0, 0.15);
+    background: rgba(0, 0, 0, 0.25);
   }
   
   .post-date {
@@ -401,73 +168,8 @@ body {
   }
   
   #footer {
-    background: rgba(0, 0, 0, 0.1);
-  }
-  
-  .music-player {
-    background: rgba(0, 0, 0, 0.15);
-    color: #eee;
-  }
-  
-  .music-player:hover {
     background: rgba(0, 0, 0, 0.2);
-  }
-  
-  .music-title, .track-title {
-    color: #eee;
-  }
-  
-  .track-artist {
-    color: #bbb;
-  }
-  
-  .close-btn {
-    color: #bbb;
-  }
-  
-  .close-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #eee;
-  }
-  
-  .control-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-  
-  .time-display {
-    color: #bbb;
-  }
-  
-  .progress-bar {
-    background: rgba(255, 255, 255, 0.1);
-  }
-  
-  .volume-btn {
-    color: #bbb;
-  }
-  
-  .volume-slider {
-    background: rgba(255, 255, 255, 0.1);
-  }
-  
-  .playlist-toggle {
-    color: #bbb;
-  }
-  
-  .playlist-toggle:hover {
-    background: rgba(255, 255, 255, 0.05);
-  }
-  
-  .playlist-item:hover {
-    background: rgba(255, 255, 255, 0.05);
-  }
-  
-  .playlist-item.active {
-    background: rgba(0, 122, 255, 0.2);
-  }
-  
-  .playlist-item .track-duration {
-    color: #777;
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 }
 
@@ -477,18 +179,12 @@ body {
     padding: 16px;
   }
   
-  .music-player {
-    width: calc(100vw - 32px);
-    right: 16px;
-    bottom: 16px;
-  }
-  
   #header h1 {
     font-size: 2rem;
   }
   
   /* 移动端背景图片样式 */
-  .herobgcolor {
+  .image-bg-container {
     background-size: cover !important;
     background-position: center !important;
   }

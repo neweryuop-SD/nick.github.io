@@ -3,29 +3,40 @@
   window.__TiengmingModernized = true;
   console.log("🍏 TiengmingModern 插件已启用 https://code.buxiantang.top/");
 
+  // 获取配置
+  const getConfig = () => {
+    // 尝试从全局配置获取
+    if (window.GMEEK_CONFIG && window.GMEEK_CONFIG.useVideoBackground !== undefined) {
+      return window.GMEEK_CONFIG.useVideoBackground;
+    }
+    
+    // 默认启用视频背景
+    return true;
+  };
+
   // 定义主题颜色配置
   const themeColors = {
     light: {
-      bgGradient: "linear-gradient(135deg, #f4f4f4, #fef2f2, #f4f0ff)",
-      // 桌面端背景图
+      // 视频背景
+      bgVideo: "https://neweryuop-sd.github.io/nick.github.io/light-video.mp4",
+      // 静态背景图
       bgImage: "url('https://neweryuop-sd.github.io/nick.github.io/light.webp')",
-      // 移动端背景图 - 竖屏优化
       bgImageMobile: "url('https://neweryuop-sd.github.io/nick.github.io/mobile-light.webp')",
-      bgOverlay: "rgba(255, 255, 255, 0)", // 透明覆盖层，去掉毛玻璃效果
-      cardBg: "rgba(255,255,255,0.1)", // 更透明的卡片背景
-      cardBorder: "1px solid rgba(255,255,255,0.15)",
+      bgOverlay: "rgba(255, 255, 255, 0.1)",
+      cardBg: "rgba(255,255,255,0.15)",
+      cardBorder: "1px solid rgba(255,255,255,0.2)",
       title: "#1c1c1e",
       summary: "#444",
       meta: "#888"
     },
     dark: {
-      bgGradient: "linear-gradient(135deg, #1a1a2b, #222c3a, #2e3950)",
-      // 桌面端背景图
+      // 视频背景
+      bgVideo: "https://neweryuop-sd.github.io/nick.github.io/night-video.mp4",
+      // 静态背景图
       bgImage: "url('https://neweryuop-sd.github.io/nick.github.io/night.webp')",
-      // 移动端背景图 - 竖屏优化
       bgImageMobile: "url('https://neweryuop-sd.github.io/nick.github.io/mobile-night.webp')",
-      bgOverlay: "rgba(0, 0, 0, 0)", // 透明覆盖层，去掉毛玻璃效果
-      cardBg: "rgba(32,32,32,0.1)", // 更透明的卡片背景
+      bgOverlay: "rgba(0, 0, 0, 0.2)",
+      cardBg: "rgba(32,32,32,0.15)",
       cardBorder: "1px solid rgba(255,255,255,0.08)",
       title: "#eee",
       summary: "#aaa",
@@ -54,20 +65,208 @@
     return window.innerWidth <= 768;
   }
 
-  // 创建动态背景元素
-  const bg = (() => {
-    const el = document.createElement("div");
-    el.className = "herobgcolor";
-    document.body.insertBefore(el, document.body.firstChild);
+  // 检测是否启用视频背景
+  function shouldUseVideoBackground() {
+    const useVideo = getConfig();
+    const isMobile = isMobileDevice();
     
-    // 创建覆盖层，但不再使用毛玻璃效果
+    // 如果配置启用视频背景且不是移动设备，则使用视频背景
+    return useVideo && !isMobile;
+  }
+
+  // 预加载资源函数
+  function preloadResource(url, type = 'image') {
+    return new Promise((resolve, reject) => {
+      if (type === 'video') {
+        const video = document.createElement('video');
+        video.preload = 'auto';
+        video.onloadeddata = resolve;
+        video.onerror = reject;
+        video.src = url;
+      } else {
+        const img = new Image();
+        img.onload = resolve;
+        img.onerror = reject;
+        img.src = url;
+      }
+    });
+  }
+
+  // 预加载所有背景资源
+  async function preloadBackgroundResources() {
+    const useVideo = shouldUseVideoBackground();
+    const resources = [];
+    
+    if (useVideo) {
+      // 预加载视频
+      resources.push(
+        preloadResource(themeColors.light.bgVideo, 'video'),
+        preloadResource(themeColors.dark.bgVideo, 'video')
+      );
+    } else {
+      // 预加载图片
+      resources.push(
+        preloadResource(themeColors.light.bgImage.replace("url('", "").replace("')", "")),
+        preloadResource(themeColors.light.bgImageMobile.replace("url('", "").replace("')", "")),
+        preloadResource(themeColors.dark.bgImage.replace("url('", "").replace("')", "")),
+        preloadResource(themeColors.dark.bgImageMobile.replace("url('", "").replace("')", ""))
+      );
+    }
+    
+    try {
+      await Promise.all(resources);
+      console.log("所有背景资源预加载完成");
+    } catch (error) {
+      console.warn("部分背景资源预加载失败:", error);
+    }
+  }
+
+  // 创建动态背景元素
+  const createBackground = () => {
+    const useVideo = shouldUseVideoBackground();
+    
+    if (useVideo) {
+      // 创建视频背景
+      return createVideoBackground();
+    } else {
+      // 创建图片背景
+      return createImageBackground();
+    }
+  };
+
+  // 创建视频背景
+  const createVideoBackground = () => {
+    const container = document.createElement("div");
+    container.className = "video-bg-container";
+    
+    // 创建视频元素
+    const video = document.createElement("video");
+    video.className = "video-bg";
+    video.autoplay = true;
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
+    
+    // 创建加载指示器
+    const loader = document.createElement("div");
+    loader.className = "bg-loader";
+    loader.innerHTML = `
+      <div class="loader-spinner"></div>
+      <div class="loader-text">加载视频背景中...</div>
+    `;
+    
+    // 创建覆盖层
+    const overlay = document.createElement("div");
+    overlay.className = "bg-overlay";
+    
+    container.appendChild(video);
+    container.appendChild(loader);
+    container.appendChild(overlay);
+    document.body.insertBefore(container, document.body.firstChild);
+    
+    const style = document.createElement("style");
+    style.textContent = `
+      .video-bg-container {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        z-index: -1;
+        overflow: hidden;
+      }
+      
+      .video-bg {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: 100%; 
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: cover;
+        transition: opacity 0.8s ease;
+      }
+      
+      .bg-overlay {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        transition: background 0.6s ease;
+      }
+      
+      .bg-loader {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0,0,0,0.5);
+        color: white;
+        z-index: 2;
+      }
+      
+      .loader-spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid rgba(255,255,255,0.3);
+        border-top: 4px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 10px;
+      }
+      
+      .loader-text {
+        font-size: 14px;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      /* 移动端禁用视频背景 */
+      @media (max-width: 768px) {
+        .video-bg-container {
+          display: none !important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    return {
+      container,
+      video,
+      loader,
+      overlay,
+      type: 'video'
+    };
+  };
+
+  // 创建图片背景
+  const createImageBackground = () => {
+    const el = document.createElement("div");
+    el.className = "image-bg-container";
+    
+    // 创建加载指示器
+    const loader = document.createElement("div");
+    loader.className = "bg-loader";
+    loader.innerHTML = `
+      <div class="loader-spinner"></div>
+      <div class="loader-text">加载背景中...</div>
+    `;
+    el.appendChild(loader);
+    
+    // 创建覆盖层
     const overlay = document.createElement("div");
     overlay.className = "bg-overlay";
     el.appendChild(overlay);
     
+    document.body.insertBefore(el, document.body.firstChild);
+    
     const style = document.createElement("style");
     style.textContent = `
-      .herobgcolor {
+      .image-bg-container {
         position: fixed;
         top: 0; left: 0;
         width: 100vw; height: 100vh;
@@ -82,8 +281,39 @@
         position: absolute;
         top: 0; left: 0;
         width: 100%; height: 100%;
-        /* 移除了 backdrop-filter，不再使用毛玻璃效果 */
         transition: background 0.6s ease;
+      }
+      
+      .bg-loader {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0,0,0,0.3);
+        color: white;
+        z-index: 1;
+      }
+      
+      .loader-spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid rgba(255,255,255,0.3);
+        border-top: 4px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 10px;
+      }
+      
+      .loader-text {
+        font-size: 14px;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
       }
       
       @keyframes subtleZoom {
@@ -92,36 +322,75 @@
         100% { transform: scale(1); }
       }
       
-      .herobgcolor {
+      .image-bg-container {
         animation: subtleZoom 60s ease-in-out infinite;
       }
 
       /* 移动端背景图片填充方式 */
       @media (max-width: 768px) {
-        .herobgcolor {
+        .image-bg-container {
           background-size: cover !important;
           background-position: center !important;
         }
       }
     `;
     document.head.appendChild(style);
-    return el;
-  })();
+    
+    return {
+      container: el,
+      loader,
+      overlay,
+      type: 'image'
+    };
+  };
+
+  // 创建背景元素
+  const bg = createBackground();
 
   // 应用主题样式的主要函数
   function applyTheme() {
     const mode = getEffectiveMode();
     const theme = themeColors[mode];
-
-    // 根据设备类型选择背景图片
+    const useVideo = shouldUseVideoBackground();
     const isMobile = isMobileDevice();
-    const bgImage = isMobile ? theme.bgImageMobile : theme.bgImage;
 
-    // 设置背景
-    bg.style.backgroundImage = bgImage;
-    const overlay = bg.querySelector('.bg-overlay');
-    if (overlay) {
-      overlay.style.background = theme.bgOverlay;
+    // 显示加载器
+    if (bg.loader) {
+      bg.loader.style.display = 'flex';
+    }
+
+    if (useVideo && bg.type === 'video') {
+      // 设置视频背景
+      bg.video.src = theme.bgVideo;
+      bg.overlay.style.background = theme.bgOverlay;
+      
+      // 监听视频加载完成
+      bg.video.addEventListener('loadeddata', () => {
+        if (bg.loader) {
+          bg.loader.style.display = 'none';
+        }
+      }, { once: true });
+      
+      // 监听视频错误
+      bg.video.addEventListener('error', () => {
+        console.error('视频加载失败:', bg.video.src);
+        if (bg.loader) {
+          bg.loader.querySelector('.loader-text').textContent = '视频加载失败';
+          setTimeout(() => {
+            bg.loader.style.display = 'none';
+          }, 2000);
+        }
+      }, { once: true });
+    } else {
+      // 设置图片背景
+      const bgImage = isMobile ? theme.bgImageMobile : theme.bgImage;
+      bg.container.style.backgroundImage = bgImage;
+      bg.overlay.style.background = theme.bgOverlay;
+      
+      // 图片背景直接隐藏加载器（因为预加载已经完成）
+      if (bg.loader) {
+        bg.loader.style.display = 'none';
+      }
     }
 
     // 为所有文章卡片应用样式
@@ -156,8 +425,27 @@
     attributeFilter: ["data-color-mode"]
   });
 
-  // 监听窗口大小变化，切换背景图片
-  window.addEventListener('resize', applyTheme);
+  // 监听窗口大小变化，重新应用主题（可能切换移动/桌面模式）
+  window.addEventListener('resize', () => {
+    const currentUseVideo = shouldUseVideoBackground();
+    const bgType = bg.type;
+    
+    // 如果背景类型需要切换
+    if ((currentUseVideo && bgType !== 'video') || (!currentUseVideo && bgType !== 'image')) {
+      // 移除现有背景
+      bg.container.remove();
+      
+      // 创建新背景
+      const newBg = createBackground();
+      Object.assign(bg, newBg);
+      
+      // 重新应用主题
+      applyTheme();
+    } else {
+      // 只是窗口大小变化，重新应用主题
+      applyTheme();
+    }
+  });
 
   // 重构卡片：将原始导航项转换为美观的卡片
   function rebuildCards() {
@@ -199,320 +487,18 @@
     applyTheme();
   }
 
-  // 音乐播放器功能
-  function initMusicPlayer() {
-    // 音乐配置
-    const musicConfig = {
-      enabled: true,
-      autoplay: false,
-      loop: true,
-      volume: 0.5,
-      tracks: [
-        {
-          name: "打火机",
-          artist: "---",
-          url: "https://neweryuop-sd.github.io/nick.github.io/打火机.mp3",
-          duration: "2:33"
-        },
-        {
-          name: "穢土",
-          artist: "---", 
-          url: "https://neweryuop-sd.github.io/nick.github.io/穢土.mp3",
-          duration: "2:45"
-        },
-        {
-          name: "主 动 - 加木",
-          artist: "---",
-          url: "https://neweryuop-sd.github.io/nick.github.io/主 动.mp3",
-          duration: "2:47"
-        }
-      ]
-    };
-
-    // 创建音乐播放器UI
-    const player = document.createElement('div');
-    player.className = 'music-player';
-    player.innerHTML = `
-      <div class="music-header">
-        <div class="music-title">Music</div>
-        <button class="close-btn" title="关闭">×</button>
-      </div>
-      <div class="music-info">
-        <span class="track-title">选择曲目</span>
-        <span class="track-artist">点击播放</span>
-      </div>
-      <div class="music-controls">
-        <button class="control-btn prev-btn" title="上一首">⏮</button>
-        <button class="control-btn play-btn" title="播放">▶</button>
-        <button class="control-btn next-btn" title="下一首">⏭</button>
-      </div>
-      <div class="progress-container">
-        <span class="time-display current-time">0:00</span>
-        <div class="progress-bar">
-          <div class="progress"></div>
-        </div>
-        <span class="time-display total-time">0:00</span>
-      </div>
-      <div class="volume-controls">
-        <button class="volume-btn" title="音量">🔊</button>
-        <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="${musicConfig.volume}">
-      </div>
-      <div class="playlist">
-        <button class="playlist-toggle">
-          <span>播放列表</span>
-          <span>▼</span>
-        </button>
-        <div class="playlist-items"></div>
-      </div>
-    `;
-    
-    document.body.appendChild(player);
-    
-    // 创建音频元素
-    const audio = new Audio();
-    audio.volume = musicConfig.volume;
-    audio.loop = musicConfig.loop;
-    
-    // 播放器状态
-    let currentTrackIndex = 0;
-    let isPlaying = false;
-    let isDragging = false;
-    let dragOffset = { x: 0, y: 0 };
-    
-    // 初始化播放列表
-    const playlistItems = player.querySelector('.playlist-items');
-    musicConfig.tracks.forEach((track, index) => {
-      const item = document.createElement('div');
-      item.className = 'playlist-item';
-      if (index === 0) item.classList.add('active');
-      item.innerHTML = `
-        <span>${track.name}</span>
-        <span class="track-duration">${track.duration}</span>
-      `;
-      item.addEventListener('click', () => {
-        loadTrack(index);
-        if (isPlaying) audio.play();
-      });
-      playlistItems.appendChild(item);
-    });
-    
-    // 加载并播放指定曲目
-    function loadTrack(index) {
-      if (musicConfig.tracks[index]) {
-        currentTrackIndex = index;
-        const track = musicConfig.tracks[index];
-        audio.src = track.url;
-        
-        // 更新UI
-        player.querySelector('.track-title').textContent = track.name;
-        player.querySelector('.track-artist').textContent = track.artist;
-        player.querySelector('.total-time').textContent = track.duration;
-        player.querySelector('.current-time').textContent = '0:00';
-        player.querySelector('.progress').style.width = '0%';
-        
-        // 更新播放列表活跃状态
-        document.querySelectorAll('.playlist-item').forEach((item, i) => {
-          if (i === index) {
-            item.classList.add('active');
-          } else {
-            item.classList.remove('active');
-          }
-        });
-      }
-    }
-    
-    // 播放/暂停音乐
-    function togglePlay() {
-      if (isPlaying) {
-        audio.pause();
-        player.querySelector('.play-btn').textContent = '▶';
-      } else {
-        // 如果没有加载曲目，加载第一首
-        if (!audio.src) {
-          loadTrack(0);
-        }
-        audio.play().catch(error => {
-          console.log('播放失败:', error);
-        });
-        player.querySelector('.play-btn').textContent = '⏸';
-      }
-      isPlaying = !isPlaying;
-    }
-    
-    // 下一首
-    function nextTrack() {
-      let nextIndex = currentTrackIndex + 1;
-      if (nextIndex >= musicConfig.tracks.length) {
-        nextIndex = 0;
-      }
-      loadTrack(nextIndex);
-      if (isPlaying) {
-        audio.play();
-      }
-    }
-    
-    // 上一首
-    function prevTrack() {
-      let prevIndex = currentTrackIndex - 1;
-      if (prevIndex < 0) {
-        prevIndex = musicConfig.tracks.length - 1;
-      }
-      loadTrack(prevIndex);
-      if (isPlaying) {
-        audio.play();
-      }
-    }
-    
-    // 设置音量
-    function setVolume(value) {
-      audio.volume = value;
-      const volumeBtn = player.querySelector('.volume-btn');
-      if (value == 0) {
-        volumeBtn.textContent = '🔇';
-      } else if (value < 0.5) {
-        volumeBtn.textContent = '🔈';
-      } else {
-        volumeBtn.textContent = '🔊';
-      }
-    }
-    
-    // 更新进度条
-    function updateProgress() {
-      if (audio.duration) {
-        const percent = (audio.currentTime / audio.duration) * 100;
-        player.querySelector('.progress').style.width = percent + '%';
-        
-        // 更新时间显示
-        const formatTime = (seconds) => {
-          const mins = Math.floor(seconds / 60);
-          const secs = Math.floor(seconds % 60);
-          return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-        };
-        
-        player.querySelector('.current-time').textContent = formatTime(audio.currentTime);
-      }
-    }
-    
-    // 拖动播放器功能
-    function initDragging() {
-      player.addEventListener('mousedown', startDrag);
-      player.addEventListener('touchstart', startDrag);
-      
-      function startDrag(e) {
-        isDragging = true;
-        player.classList.add('dragging');
-        
-        const clientX = e.clientX || e.touches[0].clientX;
-        const clientY = e.clientY || e.touches[0].clientY;
-        
-        const rect = player.getBoundingClientRect();
-        dragOffset.x = clientX - rect.left;
-        dragOffset.y = clientY - rect.top;
-        
-        document.addEventListener('mousemove', doDrag);
-        document.addEventListener('touchmove', doDrag);
-        document.addEventListener('mouseup', stopDrag);
-        document.addEventListener('touchend', stopDrag);
-        
-        e.preventDefault();
-      }
-      
-      function doDrag(e) {
-        if (!isDragging) return;
-        
-        const clientX = e.clientX || (e.touches && e.touches[0].clientX);
-        const clientY = e.clientY || (e.touches && e.touches[0].clientY);
-        
-        if (clientX && clientY) {
-          const x = clientX - dragOffset.x;
-          const y = clientY - dragOffset.y;
-          
-          // 限制在视口范围内
-          const maxX = window.innerWidth - player.offsetWidth;
-          const maxY = window.innerHeight - player.offsetHeight;
-          
-          player.style.left = Math.max(0, Math.min(x, maxX)) + 'px';
-          player.style.right = 'auto';
-          player.style.top = Math.max(0, Math.min(y, maxY)) + 'px';
-          player.style.bottom = 'auto';
-        }
-        
-        e.preventDefault();
-      }
-      
-      function stopDrag() {
-        isDragging = false;
-        player.classList.remove('dragging');
-        document.removeEventListener('mousemove', doDrag);
-        document.removeEventListener('touchmove', doDrag);
-        document.removeEventListener('mouseup', stopDrag);
-        document.removeEventListener('touchend', stopDrag);
-      }
-    }
-    
-    // 绑定事件
-    player.querySelector('.play-btn').addEventListener('click', togglePlay);
-    player.querySelector('.next-btn').addEventListener('click', nextTrack);
-    player.querySelector('.prev-btn').addEventListener('click', prevTrack);
-    player.querySelector('.volume-slider').addEventListener('input', (e) => {
-      setVolume(parseFloat(e.target.value));
-    });
-    player.querySelector('.volume-btn').addEventListener('click', () => {
-      const slider = player.querySelector('.volume-slider');
-      slider.value = audio.volume > 0 ? 0 : 0.5;
-      setVolume(parseFloat(slider.value));
-    });
-    player.querySelector('.close-btn').addEventListener('click', () => {
-      player.style.display = 'none';
-      audio.pause();
-      isPlaying = false;
-      player.querySelector('.play-btn').textContent = '▶';
-    });
-    
-    // 进度条点击跳转
-    player.querySelector('.progress-bar').addEventListener('click', (e) => {
-      if (!audio.duration) return;
-      
-      const rect = e.target.getBoundingClientRect();
-      const percent = (e.clientX - rect.left) / rect.width;
-      audio.currentTime = percent * audio.duration;
-    });
-    
-    // 播放列表切换
-    player.querySelector('.playlist-toggle').addEventListener('click', (e) => {
-      const playlist = player.querySelector('.playlist');
-      playlist.classList.toggle('open');
-      e.target.querySelector('span:last-child').textContent = 
-        playlist.classList.contains('open') ? '▲' : '▼';
-    });
-    
-    // 音频事件监听
-    audio.addEventListener('timeupdate', updateProgress);
-    audio.addEventListener('ended', () => {
-      if (musicConfig.loop) {
-        audio.currentTime = 0;
-        audio.play();
-      } else {
-        nextTrack();
-      }
-    });
-    
-    // 初始化拖动功能
-    initDragging();
-    
-    // 初始化加载第一首曲目（但不自动播放）
-    loadTrack(0);
-  }
-
   // 在DOM加载完成后执行
   if (document.readyState === "loading") {
-    window.addEventListener("DOMContentLoaded", () => {
+    window.addEventListener("DOMContentLoaded", async () => {
+      // 预加载背景资源
+      await preloadBackgroundResources();
+      
       rebuildCards();
-      initMusicPlayer();
     });
   } else {
-    rebuildCards();
-    initMusicPlayer();
+    preloadBackgroundResources().then(() => {
+      rebuildCards();
+    });
   }
 
   // 移除UI挂起状态
