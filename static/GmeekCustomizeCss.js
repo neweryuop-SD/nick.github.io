@@ -11,9 +11,9 @@
       bgImage: "url('https://neweryuop-sd.github.io/nick.github.io/light.webp')",
       // 移动端背景图 - 竖屏优化
       bgImageMobile: "url('https://neweryuop-sd.github.io/nick.github.io/mobile-light.webp')",
-      bgOverlay: "rgba(255, 255, 255, 0.1)",
-      cardBg: "rgba(255,255,255,0.25)",
-      cardBorder: "1px solid rgba(255,255,255,0.2)",
+      bgOverlay: "rgba(255, 255, 255, 0)", // 透明覆盖层，去掉毛玻璃效果
+      cardBg: "rgba(255,255,255,0.1)", // 更透明的卡片背景
+      cardBorder: "1px solid rgba(255,255,255,0.15)",
       title: "#1c1c1e",
       summary: "#444",
       meta: "#888"
@@ -24,8 +24,8 @@
       bgImage: "url('https://neweryuop-sd.github.io/nick.github.io/night.webp')",
       // 移动端背景图 - 竖屏优化
       bgImageMobile: "url('https://neweryuop-sd.github.io/nick.github.io/mobile-night.webp')",
-      bgOverlay: "rgba(0, 0, 0, 0.3)",
-      cardBg: "rgba(32,32,32,0.3)",
+      bgOverlay: "rgba(0, 0, 0, 0)", // 透明覆盖层，去掉毛玻璃效果
+      cardBg: "rgba(32,32,32,0.1)", // 更透明的卡片背景
       cardBorder: "1px solid rgba(255,255,255,0.08)",
       title: "#eee",
       summary: "#aaa",
@@ -60,7 +60,7 @@
     el.className = "herobgcolor";
     document.body.insertBefore(el, document.body.firstChild);
     
-    // 创建覆盖层，增强毛玻璃效果
+    // 创建覆盖层，但不再使用毛玻璃效果
     const overlay = document.createElement("div");
     overlay.className = "bg-overlay";
     el.appendChild(overlay);
@@ -82,8 +82,7 @@
         position: absolute;
         top: 0; left: 0;
         width: 100%; height: 100%;
-        backdrop-filter: blur(20px) brightness(0.8);
-        -webkit-backdrop-filter: blur(20px) brightness(0.8);
+        /* 移除了 backdrop-filter，不再使用毛玻璃效果 */
         transition: background 0.6s ease;
       }
       
@@ -210,22 +209,22 @@
       volume: 0.5,
       tracks: [
         {
-          name: "宁静钢琴曲",
-          artist: "背景音乐",
-          url: "https://example.com/music/peaceful-piano.mp3", // 请替换为实际音乐URL
-          duration: "3:45"
+          name: "打火机",
+          artist: "---",
+          url: "https://neweryuop-sd.github.io/nick.github.io/打火机.mp3",
+          duration: "2:33"
         },
         {
-          name: "轻音乐",
-          artist: "背景音乐", 
-          url: "https://example.com/music/light-music.mp3", // 请替换为实际音乐URL
-          duration: "4:20"
+          name: "穢土",
+          artist: "---", 
+          url: "https://neweryuop-sd.github.io/nick.github.io/穢土.mp3",
+          duration: "2:45"
         },
         {
-          name: "环境音效",
-          artist: "自然声音",
-          url: "https://example.com/music/ambient.mp3", // 请替换为实际音乐URL
-          duration: "5:10"
+          name: "主 动 - 加木",
+          artist: "---",
+          url: "https://neweryuop-sd.github.io/nick.github.io/主 动.mp3",
+          duration: "2:47"
         }
       ]
     };
@@ -235,7 +234,7 @@
     player.className = 'music-player';
     player.innerHTML = `
       <div class="music-header">
-        <div class="music-title">音乐播放器</div>
+        <div class="music-title">Music</div>
         <button class="close-btn" title="关闭">×</button>
       </div>
       <div class="music-info">
