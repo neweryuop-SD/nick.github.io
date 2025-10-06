@@ -10,24 +10,79 @@ body {
   transition: background 0.3s ease;
 }
 
+/* 头部样式 */
+#header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.15);
+  /* 亚克力材质效果 */
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+#header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#header p {
+  margin: 10px 0 0;
+  font-size: 1.1rem;
+  color: #666;
+}
+
+/* 导航容器 */
+.nav-container {
+  margin-bottom: 40px;
+}
+
+/* 原始导航项（隐藏） */
+.SideNav-item {
+  display: none;
+}
+
+/* 文章卡片样式 - 亚克力材质效果 */
 .post-card {
   display: flex;
   flex-direction: column;
   border-radius: 20px;
   padding: 20px 24px;
   margin-bottom: 20px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 8px 24px rgba(0,0,0,0.1),
+    0 1px 3px rgba(0,0,0,0.08); /* 增加细微阴影增强层次感 */
+  background: rgba(255, 255, 255, 0.15);
+  /* 亚克力材质效果 - 中等模糊度 */
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   text-decoration: none;
   transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: cardEntrance 0.6s ease forwards;
+}
+
+@keyframes cardEntrance {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .post-card:hover {
   transform: translateY(-4px) scale(1.015);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.15),
+    0 2px 6px rgba(0,0,0,0.1);
+  background: rgba(255, 255, 255, 0.2); /* 悬停时稍微增加透明度 */
 }
 
 .post-meta {
@@ -36,6 +91,7 @@ body {
   gap: 8px;
   font-size: 13px;
   margin-bottom: 10px;
+  align-items: center;
 }
 
 .post-tag {
@@ -43,6 +99,12 @@ body {
   padding: 3px 10px;
   font-weight: 500;
   margin-right: 6px;
+}
+
+.post-date {
+  margin-left: auto;
+  color: #888;
+  font-size: 12px;
 }
 
 .post-title {
@@ -54,4 +116,76 @@ body {
 .post-summary {
   font-size: 14.5px;
   line-height: 1.6;
+  margin: 0;
+}
+
+/* 底部样式 */
+#footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.15);
+  /* 亚克力材质效果 */
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* 深色模式样式 */
+[data-color-mode="dark"] body,
+@media (prefers-color-scheme: dark) {
+  body:not([data-color-mode="light"]) {
+    color: #eee;
+  }
+  
+  #header {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  #header h1 {
+    background: linear-gradient(135deg, #a8c0ff 0%, #3f2b96 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  #header p {
+    color: #bbb;
+  }
+  
+  .post-card {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .post-card:hover {
+    background: rgba(0, 0, 0, 0.25);
+  }
+  
+  .post-date {
+    color: #aaa;
+  }
+  
+  #footer {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  body {
+    padding: 16px;
+  }
+  
+  #header h1 {
+    font-size: 2rem;
+  }
+  
+  /* 移动端背景图片样式 */
+  .herobgcolor {
+    background-size: cover !important;
+    background-position: center !important;
+  }
 }
